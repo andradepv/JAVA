@@ -1,0 +1,27 @@
+package Biblioteca;
+
+public class Funcionario extends UsuarioABS {
+    private Cargo cargo;
+    private double salario;
+    private String senha;
+
+    public Funcionario(String CPF, String nome, String email, Cargo cargo, double salario, String senha) {
+        super(CPF, nome, email);
+        this.cargo = cargo;
+        this.salario = salario;
+        this.senha = senha;
+    }
+
+    @Override
+    public boolean login(String senha) {
+        return this.senha.equals(senha);
+    }
+
+    public void cadastrarUsuario(UsuarioABS usuario) {
+        // Implementação do cadastro de usuário
+    }
+
+    public void cadastrarLivro(Livro livro) {
+        // Implementação do cadastro de livro
+    }
+}

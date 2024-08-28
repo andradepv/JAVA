@@ -1,0 +1,51 @@
+package Biblioteca;
+
+public class Aluno extends UsuarioABS {
+    private String instituicaoEnsino;
+    private String curso;
+    private float notaEnem;
+
+    public Aluno(String CPF, String nome, String email, String instituicaoEnsino, String curso, float notaEnem) {
+        super(CPF, nome, email);
+        this.instituicaoEnsino = instituicaoEnsino;
+        this.curso = curso;
+        this.notaEnem = notaEnem;
+    }
+
+	public String getInstituicaoEnsino() {
+		return instituicaoEnsino;
+	}
+
+	public void setInstituicaoEnsino(String instituicaoEnsino) {
+		this.instituicaoEnsino = instituicaoEnsino;
+	}
+
+	public String getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+	public float getNotaEnem() {
+		return notaEnem;
+	}
+
+	public void setNotaEnem(float notaEnem) {
+		this.notaEnem = notaEnem;
+	}
+	
+	public String meusDados() {
+	    return "Aluno{" +
+	            "CPF='" + getCPF() + '\'' +
+	            ", nome='" + getNome() + '\'' +
+	            ", email='" + getEmail() + '\'' +
+	            ", instituicaoEnsino='" + instituicaoEnsino + '\'' +
+	            ", curso='" + curso + '\'' +
+	            ", notaEnem=" + notaEnem +
+	            '}';
+	}
+    
+}
+

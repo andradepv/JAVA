@@ -1,0 +1,48 @@
+package Biblioteca;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Biblioteca {
+	
+	private List<UsuarioABS> usuarios;
+	private List<Livro> livros;
+
+	public Biblioteca() {
+	        this.usuarios = new ArrayList<>();
+	        this.livros = new ArrayList<>();
+	    }
+
+	public boolean efetuarLogin(String cpf, String senha) {
+		for (UsuarioABS usuario : usuarios) {
+			if (usuario.getCPF().equals(cpf) && usuario.login(senha)) {
+				return true;
+	        }
+	    }
+	        return false;
+	}
+
+	    public void cadastrarUsuario(UsuarioABS usuario) {
+	        this.usuarios.add(usuario);
+	    }
+
+	    public void cadastrarLivro(Livro livro) {
+	        this.livros.add(livro);
+	    }
+
+	    public List<UsuarioABS> listarUsuarios() {
+	        return usuarios;
+	    }
+
+	    public List<Livro> listarLivros() {
+	        return livros;
+	    }
+
+	
+	    public static void main(String[] args) {
+
+	        Professor professor = new Professor("123", "João Silva", "joao.silva@example.com", "Doutorado");
+ 	        System.out.println("Senha gerada: " + professor.getSenha());
+	    }
+	}
+
+

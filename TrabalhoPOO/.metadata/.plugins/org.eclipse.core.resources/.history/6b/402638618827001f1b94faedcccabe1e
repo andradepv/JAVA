@@ -1,0 +1,180 @@
+package Biblioteca;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class SistemaBiblioteca {
+    private List<UsuarioABS> usuarios;
+    private List<Livro> livros;
+    private List<Cargo> cargosValidos;
+    private Scanner scanner;
+
+    public SistemaBiblioteca() {
+        this.usuarios = new ArrayList<>();
+        this.livros = new ArrayList<>();
+        this.cargosValidos = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void menuPrincipal() {
+        System.out.println("Login");
+        efetuarLogin();
+        
+        while (true) {
+            System.out.println("1. Login");
+            System.out.println("2. Cadastro de Livro");
+            System.out.println("3. Listagem de Livros");
+            System.out.println("4. Cadastro de Usuário");
+            System.out.println("5. Listagem de Usuários");
+            System.out.println("0. Sair");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    efetuarLogin();
+                    break;
+                case 2:
+                    cadastrarLivro();
+                    break;
+                case 3:
+                    listarLivros();
+                    break;
+                case 4:
+                    cadastrarUsuario();
+                    break;
+                case 5:
+                    listarUsuarios();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    return;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        }
+    }
+
+    private void efetuarLogin() {
+        System.out.println("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.println("Senha: ");
+        String senha = scanner.nextLine();
+
+        for (UsuarioABS usuario : usuarios) {
+            if (usuario.login(senha)) {
+                if (usuario instanceof Funcionario) {
+                    System.out.println("Login como Funcionário realizado com sucesso.");
+                } else if (usuario instanceof Professor) {
+                    System.out.println("Login como Professor realizado com sucesso.");
+                }
+                return;
+            }
+        }
+        System.out.println("CPF ou Senha inválidos.");
+    }
+
+    private void cadastrarLivro() {
+        System.out.println("Título: ");
+        String titulo = scanner.nextLine();
+        System.out.println("Autor: ");
+        String autor = scanner.nextLine();
+        System.out.println("Editora: ");
+        String editora = scanner.nextLine();
+        System.out.println("Ano de Publicação: ");
+        int anoPublicacao = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Número de Páginas: ");
+        int numeroPaginas = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("ISBN: ");
+        String isbn = scanner.nextLine();
+        System.out.println("Gênero: ");
+        String genero = scanner.nextLine();
+        System.out.println("Sinopse: ");
+        String sinopse = scanner.nextLine();
+        System.out.println("Idioma: ");
+        String idioma = scanner.nextLine();
+
+        Livro livro = new Livro(titulo, autor, editora, anoPublicacao, numeroPaginas, isbn, genero, sinopse, idioma);
+        livros.add(livro);
+        System.out.println("Livro cadastrado com sucesso!");
+    }
+
+    private void listarLivros() {
+        for (Livro livro : livros) {
+            System.out.println(livro);
+        }
+    }
+
+    private void cadastrarUsuario() {
+        System.out.println("Tipo de usuário (1 - Professor, 2 - Aluno, 3 - Funcionário): ");
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.println("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.println("Email: ");
+        String email = scanner.nextLine();
+
+        switch (tipo) {
+            case 1:
+                System.out.println("Titulação: ");
+                String titulacao = scanner.nextLine();
+                Professor professor = new Professor(cpf, nome, email, titulacao);
+                usuarios.add(professor);
+                System.out.println("Professor cadastrado com sucesso!");
+                break;
+            case 2:
+                System.out.println("Instituição de ensino: ");
+                String instituicao = scanner.nextLine();
+                System.out.println("Curso: ");
+                String curso = scanner.nextLine();
+                System.out.println("Nota no último ENEM: ");
+                float notaEnem = scanner.nextFloat();
+                scanner.nextLine();
+                Aluno aluno = new Aluno(cpf, nome, email, instituicao, curso, notaEnem);
+                usuarios.add(aluno);
+                System.out.println("Aluno cadastrado com sucesso!");
+                break;
+            case 3:
+                System.out.println("Cargo: ");
+                String cargo = scanner.nextLine();
+                if (!cargoValido(cargo)) {
+                    System.out.println("Cargo inválido. Cadastro cancelado.");
+                    return;
+                }
+                System.out.println("Salário: ");
+                float salario = scanner.nextFloat();
+                scanner.nextLine();
+                System.out.println("Senha: ");
+                String senhaFuncionario = scanner.nextLine();
+                Cargo cargoFuncionario = new Cargo("codigo", cargo, "descricao", 40);
+                Funcionario funcionario = new Funcionario(cpf, nome, email, cargoFuncionario, salario, senhaFuncionario);
+                usuarios.add(funcionario);
+                System.out.println("Funcionário cadastrado com sucesso!");
+                break;
+            default:
+                System.out.println("Tipo de usuário inválido.");
+        }
+    }
+
+    private boolean cargoValido(String cargo) {
+        return cargosValidos.contains(cargo);
+    }
+
+    private void listarUsuarios() {
+        for (UsuarioABS usuario : usuarios) {
+            System.out.println(usuario);
+        }
+    }
+
+    public static void main(String[] args) {
+        SistemaBiblioteca sistemaBiblioteca = new SistemaBiblioteca();
+        sistemaBiblioteca.menuPrincipal();
+    }
+}

@@ -1,0 +1,18 @@
+package Biblioteca;
+
+public class Cargo {
+    private String codigo;
+    private String nome;
+    private String descricao;
+    private int cargaHoraria;
+
+    public Cargo(String codigo, String nome, String descricao, int cargaHoraria) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    // Métodos getters e setters
+}
+

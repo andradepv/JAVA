@@ -1,0 +1,20 @@
+package Biblioteca;
+
+public class Aluno extends UsuarioABS {
+    private String instituicaoEnsino;
+    private String curso;
+    private float notaEnem;
+
+    public Aluno(String CPF, String nome, String email, String instituicaoEnsino, String curso, float notaEnem) {
+        super(CPF, nome, email);
+        this.instituicaoEnsino = instituicaoEnsino;
+        this.curso = curso;
+        this.notaEnem = notaEnem;
+    }
+
+    @Override
+    public boolean login(String senha) {
+        return false;
+    }
+}
+

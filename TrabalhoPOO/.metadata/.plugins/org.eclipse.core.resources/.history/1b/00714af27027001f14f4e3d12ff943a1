@@ -1,0 +1,20 @@
+package Biblioteca;
+
+public class Biblioteca {
+	
+	public class Main {
+	    public static void main(String[] args) {
+
+	        Professor professor = new Professor("12345678900", "João Silva", "joao.silva@example.com", "Doutorado");
+
+	        // Exibir os dados do professor e a senha gerada
+	        System.out.println("CPF: " + professor.CPF);
+	        System.out.println("Nome: " + professor.nome);
+	        System.out.println("Email: " + professor.getEmail());
+	        System.out.println("Titulação: " + professor.getTitulacao());
+	        System.out.println("Senha gerada: " + professor.getSenha());
+	    }
+	}
+
+
+}

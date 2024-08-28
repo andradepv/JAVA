@@ -1,0 +1,52 @@
+package Biblioteca;
+
+public class Funcionario extends UsuarioABS {
+    private Cargo cargo;
+    private double salario;
+    private String senha;
+
+    public Funcionario(String CPF, String nome, String email, Cargo cargo, float salario, String senha) {
+        super(CPF, nome, email);
+        this.cargo = cargo;
+        this.salario = salario;
+        this.senha = senha;
+    }
+
+    public boolean login(String CPF, String senha) {
+        return this.senha.equals(senha);
+    }
+
+    public void cadastrarUsuario(UsuarioABS usuario) {
+
+    }
+
+    public void cadastrarLivro(Livro livro) {
+
+    }
+
+    public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+    
+    
+}

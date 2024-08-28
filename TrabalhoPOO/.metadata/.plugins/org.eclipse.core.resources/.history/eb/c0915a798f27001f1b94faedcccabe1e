@@ -1,0 +1,353 @@
+package Biblioteca;
+
+import java.util.*;
+
+public class Biblioteca {
+    private List<Professor> professores;
+    private List<Funcionario> funcionarios;
+    private List<Aluno> alunos;
+    private List<Livro> livros;
+    private List<Cargo> cargos;
+    private Scanner scanner;
+
+    public Biblioteca() {
+        this.professores = new ArrayList<>();
+        this.funcionarios = new ArrayList<>();
+        this.alunos = new ArrayList<>();
+        this.livros = new ArrayList<>();
+        this.cargos = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public UsuarioABS login(String cpf, int senha) {
+        for (Professor professor : professores) {
+            if (professor.getCPF().equals(cpf) && professor.getSenha() == senha) {
+                return professor;
+            }
+        }
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getCPF().equals(cpf) && funcionario.getSenha() == senha) {
+                return funcionario;
+            }
+        }
+        return null;
+    }
+
+    public void cadastrarProfessor(Professor professor) {
+        professores.add(professor);
+    }
+
+    public void listarProfessores() {
+        for (Professor professor : professores) {
+            System.out.println(professor);
+        }
+    }
+
+    public void cadastrarAluno(Aluno aluno) {
+        alunos.add(aluno);
+    }
+
+    public void listarAlunos() {
+        for (Aluno aluno : alunos) {
+            System.out.println(aluno);
+        }
+    }
+
+    public void cadastrarFuncionario(Funcionario funcionario) {
+        funcionarios.add(funcionario);
+    }
+
+    public void listarFuncionarios() {
+        for (Funcionario funcionario : funcionarios) {
+            System.out.println(funcionario);
+        }
+    }
+
+    public void cadastrarCargo(Cargo cargo) {
+        cargos.add(cargo);
+    }
+
+    public void listarCargos() {
+        for (Cargo cargo : cargos) {
+            System.out.println(cargo);
+        }
+    }
+
+    public void cadastrarLivro(Livro livro) {
+        livros.add(livro);
+    }
+
+    public void listarLivros() {
+        for (Livro livro : livros) {
+            System.out.println(livro);
+        }
+    }
+
+    public void menu() {
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Login");
+            System.out.println("2. Cadastrar Professor");
+            System.out.println("3. Listar Professores");
+            System.out.println("4. Cadastrar Aluno");
+            System.out.println("5. Listar Alunos");
+            System.out.println("6. Cadastrar Funcionário");
+            System.out.println("7. Listar Funcionários");
+            System.out.println("8. Cadastrar Cargo");
+            System.out.println("9. Listar Cargos");
+            System.out.println("10. Cadastrar Livro");
+            System.out.println("11. Listar Livros");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir nova linha
+
+            switch (opcao) {
+                case 1:
+                    loginMenu();
+                    break;
+                case 2:
+                    cadastrarProfessorMenu();
+                    break;
+                case 3:
+                    listarProfessores();
+                    break;
+                case 4:
+                    cadastrarAlunoMenu();
+                    break;
+                case 5:
+                    listarAlunos();
+                    break;
+                case 6:
+                    cadastrarFuncionarioMenu();
+                    break;
+                case 7:
+                    listarFuncionarios();
+                    break;
+                case 8:
+                    cadastrarCargoMenu();
+                    break;
+                case 9:
+                    listarCargos();
+                    break;
+                case 10:
+                    cadastrarLivroMenu();
+                    break;
+                case 11:
+                    listarLivros();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    private void loginMenu() {
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Senha: ");
+        int senha = scanner.nextInt();
+        scanner.nextLine(); // Consumir nova linha
+
+        UsuarioABS usuario = login(cpf, senha);
+        if (usuario != null) {
+            System.out.println("Login realizado com sucesso! Bem-vindo, " + usuario.getNome());
+            if (usuario instanceof Professor) {
+                menuProfessor((Professor) usuario);
+            } else if (usuario instanceof Funcionario) {
+                menuFuncionario((Funcionario) usuario);
+            }
+        } else {
+            System.out.println("CPF ou senha inválidos!");
+        }
+    }
+
+    private void menuProfessor(Professor professor) {
+        while (true) {
+            System.out.println("\nMenu Professor:");
+            System.out.println("1. Consultar Acervo");
+            System.out.println("0. Logout");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir nova linha
+
+            switch (opcao) {
+                case 1:
+                    listarLivros();
+                    break;
+                case 0:
+                    System.out.println("Logout realizado com sucesso!");
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    private void menuFuncionario(Funcionario funcionario) {
+        while (true) {
+            System.out.println("\nMenu Funcionário:");
+            System.out.println("1. Cadastrar Professor");
+            System.out.println("2. Listar Professores");
+            System.out.println("3. Cadastrar Aluno");
+            System.out.println("4. Listar Alunos");
+            System.out.println("5. Cadastrar Funcionário");
+            System.out.println("6. Listar Funcionários");
+            System.out.println("7. Cadastrar Cargo");
+            System.out.println("8. Listar Cargos");
+            System.out.println("9. Cadastrar Livro");
+            System.out.println("10. Listar Livros");
+            System.out.println("0. Logout");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir nova linha
+
+            switch (opcao) {
+                case 1:
+                    cadastrarProfessorMenu();
+                    break;
+                case 2:
+                    listarProfessores();
+                    break;
+                case 3:
+                    cadastrarAlunoMenu();
+                    break;
+                case 4:
+                    listarAlunos();
+                    break;
+                case 5:
+                    cadastrarFuncionarioMenu();
+                    break;
+                case 6:
+                    listarFuncionarios();
+                    break;
+                case 7:
+                    cadastrarCargoMenu();
+                    break;
+                case 8:
+                    listarCargos();
+                    break;
+                case 9:
+                    cadastrarLivroMenu();
+                    break;
+                case 10:
+                    listarLivros();
+                    break;
+                case 0:
+                    System.out.println("Logout realizado com sucesso!");
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    private void cadastrarProfessorMenu() {
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+        System.out.print("Titulação: ");
+        String titulacao = scanner.nextLine();
+        Professor professor = new Professor(cpf, nome, email, titulacao);
+        cadastrarProfessor(professor);
+        System.out.println("Professor cadastrado com sucesso!");
+    }
+
+    private void cadastrarAlunoMenu() {
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+        System.out.print("Instituição de Ensino: ");
+        String instituicaoEnsino = scanner.nextLine();
+        System.out.print("Curso: ");
+        String curso = scanner.nextLine();
+        System.out.print("Nota no último ENEM: ");
+        float notaEnem = scanner.nextFloat();
+        scanner.nextLine(); // Consumir nova linha
+        Aluno aluno = new Aluno(cpf, nome, email, instituicaoEnsino, curso, notaEnem);
+        cadastrarAluno(aluno);
+        System.out.println("Aluno cadastrado com sucesso!");
+    }
+
+    private void cadastrarFuncionarioMenu() {
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+        System.out.print("Código do Cargo: ");
+        String codigoCargo = scanner.nextLine();
+        Cargo cargo = null;
+        for (Cargo c : cargos) {
+            if (c.getCodigo().equals(codigoCargo)) {
+                cargo = c;
+                break;
+            }
+        }
+        if (cargo == null) {
+            System.out.println("Cargo não encontrado!");
+            return;
+        }
+        System.out.print("Salário: ");
+        float salario = scanner.nextFloat();
+        scanner.nextLine(); // Consumir nova linha
+        Funcionario funcionario = new Funcionario(cpf, nome, email, cargo, salario);
+        cadastrarFuncionario(funcionario);
+        System.out.println("Funcionário cadastrado com sucesso!");
+    }
+
+    private void cadastrarCargoMenu() {
+        System.out.print("Código: ");
+        String codigo = scanner.nextLine();
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("Descrição: ");
+        String descricao = scanner.nextLine();
+        System.out.print("Carga Horária: ");
+        int cargaHoraria = scanner.nextInt();
+        scanner.nextLine(); // Consumir nova linha
+        Cargo cargo = new Cargo(codigo, nome, descricao, cargaHoraria);
+        cadastrarCargo(cargo);
+        System.out.println("Cargo cadastrado com sucesso!");
+    }
+
+    private void cadastrarLivroMenu() {
+        System.out.print("Título: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Autor: ");
+        String autor = scanner.nextLine();
+        System.out.print("Editora: ");
+        String editora = scanner.nextLine();
+        System.out.print("Ano de Publicação: ");
+        int anoPublicacao = scanner.nextInt();
+        System.out.print("Número de Páginas: ");
+        int numeroPaginas = scanner.nextInt();
+        scanner.nextLine(); // Consumir nova linha
+        System.out.print("ISBN: ");
+        String isbn = scanner.nextLine();
+        System.out.print("Gênero: ");
+        String genero = scanner.nextLine();
+        System.out.print("Sinopse: ");
+        String sinopse = scanner.nextLine();
+        System.out.print("Idioma: ");
+        String idioma = scanner.nextLine();
+        Livro livro = new Livro(titulo, autor, editora, anoPublicacao, numeroPaginas, isbn, genero, sinopse, idioma);
+        cadastrarLivro(livro);
+        System.out.println("Livro cadastrado com sucesso!");
+    }
+
+    public static void main(String[] args) {
+        Biblioteca sistema = new Biblioteca();
+        sistema.loginMenu();
+    }
+}

@@ -1,0 +1,16 @@
+package Biblioteca;
+
+public abstract class UsuarioABS {
+	
+	protected String CPF;
+	protected String nome;
+	protected String email;
+
+	public UsuarioABS(String CPF, String nome, String email) {
+	    this.CPF = CPF;
+	    this.nome = nome;
+	    this.email = email;
+	    }
+
+	    public abstract boolean login(String senha);
+}
